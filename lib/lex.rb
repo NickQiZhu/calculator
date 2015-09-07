@@ -16,6 +16,8 @@ class Lex
     tokens << to_number(token)
   end
 
+  private
+
   def to_number(token)
     token.to_i
   end
