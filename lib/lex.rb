@@ -3,13 +3,13 @@ class Lex
 
   def tokenize(string)
     tokens = []
-    token = ''
+    token = new_token
 
     string.each_char do |c|
       if operator?(c)
         tokens << to_number(token)
         tokens << to_operator(c)
-        token = ''
+        token = new_token
       else
         token << c
       end
@@ -19,6 +19,10 @@ class Lex
   end
 
   private
+
+  def new_token
+    ''
+  end
 
   def to_number(token)
     token.to_f
