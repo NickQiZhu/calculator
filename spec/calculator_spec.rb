@@ -5,10 +5,12 @@ describe Calculator do
 
   describe '#calculate' do
     {
-        '1 + 1' => 2
+        '1 + 1' => 2,
+        '2 - 1.1' => 0.9,
+        '2 - 1 * 3 + 2 / 2 + 5' => 5,
     }.each_pair do |expression, result|
       it "#{expression}" do
-        expect(calc.calculate(expression)).to eq result
+        expect(calc.calculate(expression)).to be_within(0.1).of result
       end
     end
 
