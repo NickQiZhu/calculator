@@ -1,4 +1,6 @@
 class Lex
+  OPERATORS = %w(+ - * /)
+
   def tokenize(string)
     tokens = []
     token = ''
@@ -19,7 +21,7 @@ class Lex
   private
 
   def to_number(token)
-    token.to_i
+    token.to_f
   end
 
   def to_operator(c)
@@ -27,6 +29,6 @@ class Lex
   end
 
   def operator?(c)
-    c == '+' || c == '-'
+    OPERATORS.include? c
   end
 end

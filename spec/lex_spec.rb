@@ -6,7 +6,8 @@ describe Lex do
   describe '#tokenize' do
     {
         '1+1' => [1, :+, 1],
-        '2-1' => [2, :-, 1]
+        '20 - 11' => [20, :-, 11],
+        '1.11 * 11.22 / 1.333' => [1.11, :*, 11.22, :/, 1.333]
     }.each_pair do |e, t|
       it(e) { expect(lex.tokenize(e)).to eq t }
     end
