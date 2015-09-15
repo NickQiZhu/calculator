@@ -1,7 +1,7 @@
-require_relative 'operator_support'
+require_relative 'operation_table'
 
 class Lex
-  include OperatorSupport
+  include OperationTable
 
   def tokenize(string)
     tokens = []
@@ -30,7 +30,4 @@ class Lex
     token.to_f
   end
 
-  def to_operator(c)
-    c.to_sym
-  end
 end

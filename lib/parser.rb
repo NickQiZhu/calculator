@@ -1,9 +1,7 @@
-require_relative 'operator_support'
+require_relative 'operation_table'
 
 class Parser
-  include OperatorSupport
-
-  ORDER_OF_OPS = {:+ => 1, :- => 1, :* => 0, :/ => 0}
+  include OperationTable
 
   def parse(tokens)
     stack = tokens
@@ -31,20 +29,8 @@ class Parser
 
   private
 
-  def op_orders
-    ORDER_OF_OPS.values.uniq.sort
-  end
-
   def operation_available?(stack, token)
     operand?(token) && !first_token?(stack)
-  end
-
-  def operator?(token)
-    token.is_a?(Symbol)
-  end
-
-  def operand?(token)
-    !operator?(token)
   end
 
   def first_token?(stack)
@@ -58,10 +44,6 @@ class Parser
     else
       skip_operation(operator, stack, token)
     end
-  end
-
-  def matching_order?(op_order, operator)
-    ORDER_OF_OPS[operator] == op_order
   end
 
   def form_operation(operator, stack, token)
