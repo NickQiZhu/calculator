@@ -1,5 +1,7 @@
+require_relative 'operator_support'
+
 class Lex
-  OPERATORS = %w(+ - * /)
+  include OperatorSupport
 
   def tokenize(string)
     tokens = []
@@ -30,9 +32,5 @@ class Lex
 
   def to_operator(c)
     c.to_sym
-  end
-
-  def operator?(c)
-    OPERATORS.include? c
   end
 end

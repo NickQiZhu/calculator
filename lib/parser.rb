@@ -1,4 +1,8 @@
+require_relative 'operator_support'
+
 class Parser
+  include OperatorSupport
+
   ORDER_OF_OPS = {:+ => 1, :- => 1, :* => 0, :/ => 0}
 
   def parse(tokens)
