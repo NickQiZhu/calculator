@@ -2,12 +2,7 @@ require_relative 'lex'
 require_relative 'parser'
 
 class Calculator
-  OPERATIONS = {
-      :+ => ->(l, r) { l + r },
-      :- => ->(l, r) { l - r },
-      :* => ->(l, r) { l * r },
-      :/ => ->(l, r) { l / r }
-  }
+  include Operations
 
   def initialize
     @lex = Lex.new
@@ -42,10 +37,6 @@ class Calculator
 
   def operation?(node)
     node.is_a?(Array)
-  end
-
-  def find_op_func(operator)
-    OPERATIONS[operator]
   end
 
 end

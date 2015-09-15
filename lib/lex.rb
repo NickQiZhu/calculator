@@ -1,7 +1,7 @@
-require_relative 'operation_table'
+require_relative 'operations'
 
 class Lex
-  include OperationTable
+  include Operations
 
   def tokenize(string)
     tokens = []

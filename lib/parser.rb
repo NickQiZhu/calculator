@@ -1,7 +1,7 @@
-require_relative 'operation_table'
+require_relative 'operations'
 
 class Parser
-  include OperationTable
+  include Operations
 
   def parse(tokens)
     stack = tokens
