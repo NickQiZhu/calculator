@@ -1,17 +1,13 @@
 module Operations
-  OPERATIONS = {
-      :+ => {order: 1, func: ->(l, r) { l + r }},
-      :- => {order: 1, func: ->(l, r) { l - r }},
-      :* => {order: 0, func: ->(l, r) { l * r }},
-      :/ => {order: 0, func: ->(l, r) { l / r }}
-  }
-
+  class OpDef < Struct.new(:order, :func)
+  end
+  
   def to_operator(c)
     c.to_s.to_sym
   end
 
   def operator?(c)
-    OPERATIONS.include?(to_operator(c))
+    operations.include?(to_operator(c))
   end
 
   def operand?(token)
@@ -23,20 +19,29 @@ module Operations
   end
 
   def matching_order?(op_order, operator)
-    op_order == find_operation(operator)[:order]
+    op_order == find_operation(operator).order
   end
 
   def find_op_func(operator)
-    find_operation(operator)[:func]
+    find_operation(operator).func
   end
 
   private
 
   def find_operation(operator)
-    OPERATIONS[operator]
+    operations[operator]
   end
 
   def operation_orders
-    OPERATIONS.values.map { |v| v[:order] }
+    operations.values.map { |v| v.order }
+  end
+
+  def operations
+    @operations ||= {
+        :+ => OpDef.new(1, ->(l, r) { l + r }),
+        :- => OpDef.new(1, ->(l, r) { l - r }),
+        :* => OpDef.new(0, ->(l, r) { l * r }),
+        :/ => OpDef.new(0, ->(l, r) { l / r })
+    }
   end
 end
