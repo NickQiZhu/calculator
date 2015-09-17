@@ -4,6 +4,28 @@ class Parser
   include Operations
 
   def parse(tokens)
+    stack = []
+
+    tokens.each do |token|
+      if token == :')'
+        sub_exp = []
+        t = stack.pop
+
+        while t != :'('
+          sub_exp.insert(0, t)
+          t = stack.pop
+        end
+
+        stack.push parse_in_parenthesis(sub_exp)
+      else
+        stack.push token
+      end
+    end
+
+    parse_in_parenthesis(stack)
+  end
+
+  def parse_in_parenthesis(tokens)
     stack = tokens
 
     op_orders.each do |op_order|

@@ -19,7 +19,12 @@ module Operations
   end
 
   def matching_order?(op_order, operator)
-    op_order == find_operation(operator).order
+    op = find_operation(operator)
+    if op
+      op_order == op.order
+    else
+      false
+    end
   end
 
   def find_op_func(operator)
