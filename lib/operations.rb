@@ -1,13 +1,13 @@
 module Operations
   class OpDef < Struct.new(:order, :func)
   end
-  
-  def to_operator(c)
+
+  def to_symbol(c)
     c.to_s.to_sym
   end
 
   def operator?(c)
-    operations.include?(to_operator(c))
+    operations.include?(to_symbol(c))
   end
 
   def operand?(token)

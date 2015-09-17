@@ -5,29 +5,44 @@ class Lex
 
   def tokenize(string)
     tokens = []
-    token = new_token
+    token = reset_token
 
     string.each_char do |c|
-      if operator?(c)
-        tokens << to_number(token)
-        tokens << to_operator(c)
-        token = new_token
+      if operator?(c) || parenthesis?(c)
+        append_number(tokens, token)
+        append_symbol(tokens, c)
+        token = reset_token
       else
         token << c
       end
     end
 
-    tokens << to_number(token)
+    append_number(tokens, token)
   end
+
 
   private
 
-  def new_token
+  def parenthesis?(c)
+    %w{( )}.include?(c)
+  end
+
+  def reset_token
     ''
   end
 
-  def to_number(token)
-    token.to_f
+  def append_number(tokens, token)
+    tokens << token.to_f unless token.empty?
+    tokens
+  end
+
+  def append_symbol(tokens, token)
+    tokens << to_symbol(token)
+    tokens
+  end
+
+  def to_literal(c)
+    c
   end
 
 end
