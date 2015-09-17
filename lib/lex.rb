@@ -41,8 +41,4 @@ class Lex
     tokens
   end
 
-  def to_literal(c)
-    c
-  end
-
 end
