@@ -5,7 +5,7 @@ calc = Calculator.new
 puts 'Enter expression to start:'
 
 while true do
-  input = gets
+  input = gets.strip
 
   break if input.include? 'exit'
 
